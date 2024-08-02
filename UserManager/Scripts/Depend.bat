@@ -1,0 +1,1 @@
+mvn dependency:tree -f ..\server\pom.xml

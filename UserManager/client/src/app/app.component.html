@@ -1,0 +1,31 @@
+<div *ngIf="waiting" id="overlay">
+  <div class="center">
+    <div class="spinner"></div>
+  </div>
+</div>
+
+<div id="app-container" *ngIf="isAuthenticated();else login" class="row">
+  <div id="title-bar">
+    <label>{{ title }}</label>
+    <a class="float-sm-end" routerLink="/login" (click)="logout()">Logout</a>
+  </div>
+
+  <div id="nav-panel" class="col col-md-3 card">
+    <ul>
+      <li>
+        <a routerLink="/list-users">Accounts</a>
+      </li>
+      <li>
+        <a routerLink="/list-roles">Roles</a>
+      </li>
+    </ul>
+    <div class="card-footer mt-auto text-center">
+      <button type="button" class="btn btn-reset" (click)="reset()">Reset</button>
+    </div>
+  </div>
+  <div class="col col-md-9">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<ng-template #login><app-login routerLink="/login"></app-login></ng-template>

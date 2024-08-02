@@ -1,0 +1,21 @@
+.modal-header {
+    color: #125a8f;
+    background-color: #f0f0f0;
+    font-size: 18px;
+    font-weight: bold;  
+    --bs-modal-header-border-color: #125a8f;
+}
+
+.modal-body {
+    color: #125a8f;
+}
+
+.modal-footer {
+    background-color: #f0f0f0;
+    --bs-modal-footer-border-color: #125a8f;
+}
+
+.my-5 {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}

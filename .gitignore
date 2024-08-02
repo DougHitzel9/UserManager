@@ -1,0 +1,17 @@
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+
+# mvn
+**/.mvn
+**/mvnw
+mvnw.cmd
+
+# node
+**/node
+**/node_modules
+
+# target folder
+**/target
+
+# client
+UserManager/client/node_modules
+

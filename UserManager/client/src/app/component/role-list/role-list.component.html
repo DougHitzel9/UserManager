@@ -1,0 +1,21 @@
+<table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th scope="col" style="min-width: 48px; width: 24px;" colspan="2"></th>
+        <th scope="col" style="min-width: 100px; width: 100px;">Role Id</th>
+        <th scope="col" style="min-width: 150px; width: 90%;">Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let role of roles">
+        <td style="padding-top: 12px; padding-left: 4px; padding-right: 4px; min-width: 24px; width: 24px;">
+          <i class="fa-solid fa-pencil" (click)="editRole(role);" placement="top" ngbTooltip="Edit"></i>
+        </td>
+        <td style="min-width: 100px; width: 100px; text-align: right;">{{ role.roleId }}</td>
+        <td style="min-width:150px; width: 90%; padding-left: 20px;">{{ role.role }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+<!-- info-dialog.component.html -->
+<app-info-dialog [infoText]="infoText"></app-info-dialog>

@@ -1,0 +1,51 @@
+<ng-template #userDialog let-modal>
+  <div *ngIf="show" id="modal-overlay">
+    <div class="center">
+      <div class="spinner"></div>
+    </div>
+  </div>
+
+  <div class="modal-header">
+    <label class="modal-title">{{ title }}</label>
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+  </div>
+  
+  <form class="was-validated" (ngSubmit)="onSubmit()" [formGroup]="userFormGroup">
+    <div class="modal-body">
+      <div class="card my-5">
+        <div class="card-body">
+
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" 
+              class="form-control" 
+              id="username" 
+              name="username"
+              placeholder="Enter username"
+              formControlName="username"
+              required>
+            <div class="invalid-feedback">Name required</div>
+          </div>
+
+          <div class="form-group" style="margin-top: 14px;">
+            <label for="role">Role</label>
+            <select class="form-select"
+                    id="role"
+                    name="role"
+                    formControlName="role">
+              <option *ngFor="let role of roles"
+                      [value]="role.roleId"
+                      [selected]="role.roleId == 3 ? true : null">{{ role.role}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit"  class="btn btn-primary">Save</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('Cross click')">Cancel</button>
+    </div>
+  </form>
+</ng-template>

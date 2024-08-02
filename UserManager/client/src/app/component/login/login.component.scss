@@ -1,0 +1,22 @@
+#login-panel {
+    min-width: 450px;
+    width: 450px;
+    color: #125a8f;
+}
+
+#error-message {
+    padding: 2px;
+    height: 30px;
+    width: 100%;
+    color: var(--bs-form-invalid-color);
+}
+
+.card-header {
+    background-color: #f0f0f0;
+    font-size: 18px;
+    font-weight: bold;  
+}
+
+.card-footer {
+    background-color: #f0f0f0;
+}

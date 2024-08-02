@@ -1,0 +1,1 @@
+mvn clean install -f ..\client\pom.xml -Dmaven.test.skip=false

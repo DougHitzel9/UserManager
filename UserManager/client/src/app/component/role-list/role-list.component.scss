@@ -1,0 +1,28 @@
+table {
+    margin: 0;
+    border-color: #125a8f;
+    border-width: 1px;
+    border-style: solid;
+}
+
+thead {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    --bs-table-bg: #c0c0c0;
+    --bs-table-color: #125a8f;
+}
+
+thead th {
+    padding: 10px !important;
+    border-color: #d8e6f6;
+    border-width: 1px;
+    border-style: solid;
+}
+
+tbody {
+    height: 178px;
+    overflow-y: auto;
+    display: block;
+}
