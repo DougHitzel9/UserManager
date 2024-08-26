@@ -4,12 +4,12 @@ import { RouterLink } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Role } from '../../entity/role';
 import { User } from '../../entity/user';
-import { AuthService } from '../../service/auth.service';
-import { RoleService } from '../../service/role.service';
-import { UserService } from '../../service/user.service';
 import { AppComponent } from '../../app.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
+import { AuthService } from '../../service/auth.service';
+import { RoleService } from '../../service/role.service';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-user-list',
@@ -45,33 +45,30 @@ export class UserListComponent {
   }
 
   public getRoles() {
-    console.log('*** UserListComponent.getRoles()');
-
     this.showOverlay();
 
     this.roleService.findAll().subscribe({
       next: data => {
         this.roles = data;
-        this.appComponent.hideOverlay();
+        this.hideOverlay();
       },
       error: err => {
-        this.appComponent.hideOverlay();
-
-        console.log("Status: " + err.status);
-        if (err.status === 403) {
-          console.log("Status: " + err.status + " - jwt expired.");
-          this.authService.clearJwt();
-        }
+        this.handleError(err);
       }
     });
   }
 
   public getUsers() {
-    console.log('*** UserListComponent.getUsers()');
-    
-    this.userService.findAll().subscribe(data => {
-      this.users = data;
-      this.hideOverlay();
+    this.showOverlay();
+
+    this.userService.findAll().subscribe({
+      next: data => {
+        this.users = data;
+        this.hideOverlay();
+      },
+      error: err => {
+        this.handleError(err);
+      }
     }); 
   }
 
@@ -109,6 +106,33 @@ export class UserListComponent {
 
   public handleConfirmEvent(confirm: boolean) {
     console.log('*** handleConfirmEvent() - confirm: ' + confirm);
+  }
+
+  public handleSaveEvent(user: User) {
+    console.log('*** handleConfirmEvent() - user: ' + user.userId + ' : transaction: ' + user.transaction);
+
+    if (user.transaction === 'A') {
+      this.users.push(user);
+    } else {
+      // update existing user
+      for (let row of this.users) {
+        if (row.userId === user.userId) {
+          row.username = user.username;
+          row.role.roleId = user.role.roleId;
+          return;
+        }
+      }
+    }
+  }
+
+  private handleError(err: any) {
+    this.hideOverlay();
+
+    console.log("Status: " + err.status);
+    if (err.status === 403) {
+      console.log("Status: " + err.status + " - jwt expired.");
+      this.authService.clearJwt();
+    }
   }
 
   private hideOverlay() {

@@ -1,8 +1,10 @@
 import { NgFor } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { Role } from '../../entity/role';
-import { RoleService } from '../../service/role.service';
+import { AppComponent } from '../../app.component';
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
+import { AuthService } from '../../service/auth.service';
+import { RoleService } from '../../service/role.service';
 
 @Component({
   selector: 'app-role-list',
@@ -20,22 +22,43 @@ export class RoleListComponent {
 
   public infoText = 'To be implemented...';
 
-  constructor(private roleService: RoleService) {
-    console.log('*** RoleListComponent');
+  constructor(private authService: AuthService,
+              private roleService: RoleService,
+              private appComponent: AppComponent) {
     this.getRoles();
   }
 
   public getRoles() {
-    console.log('*** RoleListComponent.getRoles()');
-    
-    this.roleService.findAll().subscribe(data => {
-      this.roles = data;
-    }); 
+    this.roleService.findAll().subscribe({
+      next: data => {
+        this.roles = data;
+        this.hideOverlay();
+      },
+      error: err => {
+        this.handleError(err);
+      }
+    });
   }
   
   public editRole(role: Role) {
-    console.log('editRole() - selectedRole: ' + role.roleId + ' : ' + role.role);
-    
     this.myInfoDialog?.showModal();
+  }
+
+  private handleError(err: any) {
+    this.hideOverlay();
+
+    console.log("Status: " + err.status);
+    if (err.status === 403) {
+      console.log("Status: " + err.status + " - jwt expired.");
+      this.authService.clearJwt();
+    }
+  }
+
+  private hideOverlay() {
+    this.appComponent.hideOverlay();
+  }
+
+  private showOverlay() {
+    this.appComponent.showOverlay();
   }
 }

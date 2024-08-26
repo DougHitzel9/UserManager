@@ -35,7 +35,7 @@
                     formControlName="role">
               <option *ngFor="let role of roles"
                       [value]="role.roleId"
-                      [selected]="role.roleId == 3 ? true : null">{{ role.role}}
+                      [selected]="role.roleId == user.role.roleId ? true : null">{{ role.role}}
               </option>
             </select>
           </div>

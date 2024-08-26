@@ -40,7 +40,7 @@ export class UserService {
 
   public save(user: User): Observable<User> {
 
-    console.log('*** UserService.save()');
+    console.log('*** UserService.save() - ' + user.username);
 
     let userUrl = 'http://localhost:8080/server/user';
 

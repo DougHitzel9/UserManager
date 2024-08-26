@@ -20,11 +20,11 @@ export class ConfirmDialogComponent {
 
   constructor(public modalService: NgbModal) {}
 
-  showModal() {
+  public showModal() {
     this.modalService.open(this.modal);
   }
 
-  close(value: boolean) {
+  public close(value: boolean) {
     this.confirmEvent.emit(value);
     this.modalService.dismissAll();
   }

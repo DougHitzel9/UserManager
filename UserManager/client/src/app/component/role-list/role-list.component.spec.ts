@@ -1,6 +1,7 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { RoleListComponent } from './role-list.component';
+import { AppComponent } from '../../app.component';
 
 describe('RoleListComponent', () => {
   let component: RoleListComponent;
@@ -8,7 +9,8 @@ describe('RoleListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RoleListComponent]
+      imports: [HttpClientTestingModule, RoleListComponent],
+      providers: [AppComponent]
     })
     .compileComponents();
     

@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
 import { RoleListComponent } from './component/role-list/role-list.component';
 import { UserListComponent } from './component/user-list/user-list.component';
@@ -10,13 +11,13 @@ export const routes: Routes = [
         component: LoginComponent
     },
     {
-        path: 'list-users',
-        component: UserListComponent,
+        path: 'list-roles',
+        component: RoleListComponent,
         canActivate: [canActivateGuard]
     },
     {
-        path: 'list-roles',
-        component: RoleListComponent,
+        path: 'list-users',
+        component: UserListComponent,
         canActivate: [canActivateGuard]
     }
 ];

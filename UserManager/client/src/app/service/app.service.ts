@@ -19,6 +19,6 @@ export class AppService {
 
     const headers = this.authService.getHeaders();
 
-    return this.httpClient.post<any>(resetUrl, { headers });
+    return this.httpClient.post<any>(resetUrl, {}, { headers });
   }
 }
