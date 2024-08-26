@@ -150,7 +150,7 @@ public class UserRepository extends AbstractRepository {
 
         Role role = user.getRole();
  
-        Object[] params = new Object[3];
+        Object[] params = new Object[2];
         params[0] = role.getRoleId();
         params[1] = userId;
 

@@ -24,10 +24,9 @@ import io.jsonwebtoken.security.SignatureException;
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${acme.app.jwtSecret}")
+    @Value("${jwt.secret}")
     private String jwtSecret;
-
-    @Value("${acme.app.jwtExpirationMs}")
+    @Value("${jwt.expirationMs}")
     private int jwtExpirationMs;
 
     public String generateJwtToken(UserDetails userDetails) {
