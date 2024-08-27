@@ -1,10 +1,11 @@
 import { NgFor } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
-import { Role } from '../../entity/role';
+import { Router } from '@angular/router';
 import { AppComponent } from '../../app.component';
-import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
+import { Role } from '../../entity/role';
 import { AuthService } from '../../service/auth.service';
 import { RoleService } from '../../service/role.service';
+import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
 
 @Component({
   selector: 'app-role-list',
@@ -24,7 +25,9 @@ export class RoleListComponent {
 
   constructor(private authService: AuthService,
               private roleService: RoleService,
-              private appComponent: AppComponent) {
+              private appComponent: AppComponent,
+              private router: Router) {
+
     this.getRoles();
   }
 

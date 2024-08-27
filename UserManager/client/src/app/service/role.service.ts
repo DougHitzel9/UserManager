@@ -18,7 +18,7 @@ export class RoleService {
     
     console.log('*** RoleService.findAll()');
 
-    let rolesUrl = 'http://localhost:8080/server/roles';
+    let rolesUrl = 'http://localhost:8080/server/jpa/roles';
 
     const headers = this.authService.getHeaders();
 

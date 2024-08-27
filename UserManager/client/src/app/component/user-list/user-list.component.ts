@@ -80,12 +80,20 @@ export class UserListComponent {
     this.myUserDialog?.showModal();
   }
 
-  public editUser(user: User) {
-    // assign this.selectedUser
-    console.log('editUser() - selectedUser: ' + user.userId + ' : ' + user.username + ' : ' + user.role.roleId + ' : ' + user.role.role);
+  public deleteUser(userId: number) {
+    console.log("deleteUser() - " + userId);
 
     // deep clone
     this.selectedUser = new User;
+    this.selectedUser.userId = userId;
+
+    this.myConfirmDialog?.showModal();
+  }
+
+  public editUser(user: User) {
+    // deep clone
+    this.selectedUser = new User;
+    this.selectedUser.transaction = 'E';
     this.selectedUser.userId = user.userId;
     this.selectedUser.username = user.username;
     this.selectedUser.role.roleId = user.role.roleId;
@@ -96,16 +104,27 @@ export class UserListComponent {
     this.myUserDialog?.showModal();
   }
 
-  public deleteUser(userId: number) {
-    console.log("deleteUser() - " + userId);
-
-    // confirm("User will be deleted. Do you wish to proceed?");
-
-    this.myConfirmDialog?.showModal();
-  }
-
-  public handleConfirmEvent(confirm: boolean) {
+  public handleConfirmDeleteEvent(confirm: boolean) {
     console.log('*** handleConfirmEvent() - confirm: ' + confirm);
+
+    if (confirm) {
+      this.showOverlay();
+
+      let userId = this.selectedUser.userId;
+
+      this.userService.deleteById(userId).subscribe({
+        next: data => {
+          // delete selected user
+          let index = this.users.findIndex(row => row.userId === userId);
+
+          this.users.splice(index, 1);
+          this.hideOverlay();
+        },
+        error: err => {
+          this.handleError(err);
+        }
+      });
+    }
   }
 
   public handleSaveEvent(user: User) {
@@ -114,14 +133,10 @@ export class UserListComponent {
     if (user.transaction === 'A') {
       this.users.push(user);
     } else {
-      // update existing user
-      for (let row of this.users) {
-        if (row.userId === user.userId) {
-          row.username = user.username;
-          row.role.roleId = user.role.roleId;
-          return;
-        }
-      }
+      // update selected user
+      let index = this.users.findIndex(row => row.userId === user.userId);
+
+      this.users.splice(index, 1, user);
     }
   }
 

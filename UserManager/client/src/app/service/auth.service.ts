@@ -16,11 +16,16 @@ const JWT = 'jwt';
  */
 export class AuthService {
 
+  private isLocalStorageAvailable = typeof localStorage !== 'undefined';
+
   constructor(private httpClient: HttpClient, private router : Router) {}
 
   public isAuthenticated(): boolean {
-    // double-negate existence of JWT
-    return !!sessionStorage.getItem(JWT);
+    if (this.isLocalStorageAvailable) {
+      // double-negate existence of JWT
+      return !!sessionStorage.getItem(JWT);
+    }
+    return false;
   }
 
   public authenticate(credentials: Credentials): Observable<any> {
@@ -42,7 +47,9 @@ export class AuthService {
   }
 
   public clearJwt() {
-    sessionStorage.removeItem(JWT);
+    if (this.isLocalStorageAvailable) {    
+      sessionStorage.removeItem(JWT);
+    }
   }
 
   public getHeaders(): any {
