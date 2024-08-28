@@ -2,10 +2,10 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AppComponent } from '../../app.component';
 import { Role } from '../../entity/role';
 import { User } from '../../entity/user';
 import { UserService } from '../../service/user.service';
-
 
 @Component({
   selector: 'app-user-dialog',
@@ -32,7 +32,8 @@ export class UserDialogComponent implements OnChanges, OnInit {
   private modalDialog: NgbActiveModal;
 
   constructor(public modalService: NgbModal,
-              private userService: UserService) {
+              private userService: UserService,
+              private appComponent: AppComponent) {
     console.log('*** UserDialogComponent()');
   }
 
@@ -61,9 +62,11 @@ export class UserDialogComponent implements OnChanges, OnInit {
     this.user.username = this.userFormGroup.controls['username'].value;
     this.user.role.roleId = this.userFormGroup.controls['role'].value;
 
-    console.log('*** onSubmit() - ' + this.user.username + ' : ' + this.user.role.roleId + ' : ' + this.user.transaction);
+    console.log('*** onSubmit() - ' + this.user.userId + ' : ' + this.user.username + ' : ' + this.user.role.roleId + ' : ' + this.user.transaction);
     this.showOverlay();
     this.userService.save(this.user).subscribe(data => {
+      this.hideOverlay();
+
       let user: User = data;
 
       // copy fields to preserve transaction
@@ -100,6 +103,16 @@ export class UserDialogComponent implements OnChanges, OnInit {
     return a + b;
   }
 
+  /**
+   * hide spinner
+   */
+  private hideOverlay() {
+    this.show = false;
+  }
+
+  /**
+   * display spinner
+   */
   private showOverlay() {
     this.show = true;
   }

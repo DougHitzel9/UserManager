@@ -1,5 +1,11 @@
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
+# .angular
+**/client/.angular
+
+# dist
+**/client/dist
+
 # mvn
 **/.mvn
 **/mvnw
@@ -11,7 +17,3 @@ mvnw.cmd
 
 # target folder
 **/target
-
-# client
-UserManager/client/node_modules
-

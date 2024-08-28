@@ -14,24 +14,33 @@ export class UserService {
     console.log('*** UserService()');
   }
 
+  public deleteById(id: number):Observable<any> {
+    
+    console.log('*** UserService.deleteById()');
+
+    let usersUrl = 'http://localhost:8080/server/jpa/users/' + id;
+
+    const headers = this.authService.getHeaders();
+
+    return this.httpClient.delete<User[]>(usersUrl, { headers });
+  }
+
   public findAll(): Observable<User[]> {
     
     console.log('*** UserService.findAll()');
 
-    let usersUrl = 'http://localhost:8080/server/users';
+    let usersUrl = 'http://localhost:8080/server/jpa/users';
 
     const headers = this.authService.getHeaders();
 
     return this.httpClient.get<User[]>(usersUrl, { headers });
   }
 
-  public findById(id: string): Observable<User[]> {
+  public findById(id: number): Observable<User[]> {
     
     console.log('*** UserService.findById()');
 
-    let userId: number = parseInt(id);
-
-    let usersUrl = 'http://localhost:8080/server/user/id';
+    let usersUrl = 'http://localhost:8080/server/jpa/users/' + id;
 
     const headers = this.authService.getHeaders();
 
@@ -42,10 +51,10 @@ export class UserService {
 
     console.log('*** UserService.save() - ' + user.username);
 
-    let userUrl = 'http://localhost:8080/server/user';
+    let usersUrl = 'http://localhost:8080/server/jpa/users';
 
     const headers = this.authService.getHeaders();
 
-    return  this.httpClient.post<User>(userUrl, user, { headers });
+    return  this.httpClient.post<User>(usersUrl, user, { headers });
   }
 }

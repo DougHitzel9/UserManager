@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from '../../app.component';
 import { Credentials } from '../../entity/credentials';
@@ -13,13 +13,16 @@ import { AuthService } from '../../service/auth.service';
   styleUrl: './login.component.scss'
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   public credentials: Credentials = { username: 'Beta', password: 'Beta' };
   public attempts = 0;
 
   constructor(private appComponent: AppComponent, private authService: AuthService) {}
 
+  ngOnInit() {
+    console.log('*** login.ngOnInit()');
+  }
   onSubmit() {
     console.log("onSubmit()");
 

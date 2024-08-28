@@ -28,7 +28,7 @@
 </div>
 
 <!-- confirm-dialog.component.html -->
-<app-confirm-dialog [confirmText]="confirmText" (confirmEvent)="handleConfirmEvent($event)"></app-confirm-dialog>
+<app-confirm-dialog [confirmText]="confirmText" (confirmEvent)="handleConfirmDeleteEvent($event)"></app-confirm-dialog>
 
 <!-- user-dialog.component.html -->
 <app-user-dialog [title]="dialogTitle" [roles]="roles" [user]="selectedUser" (saveEvent)="handleSaveEvent($event)"></app-user-dialog>
